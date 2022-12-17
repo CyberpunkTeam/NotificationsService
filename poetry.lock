@@ -463,6 +463,22 @@ socks = ["PySocks (>=1.5.6,!=1.5.7)"]
 use_chardet_on_py3 = ["chardet (>=3.0.2,<6)"]
 
 [[package]]
+name = "requests-mock"
+version = "1.10.0"
+description = "Mock out responses from the requests package"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+requests = ">=2.3,<3"
+six = "*"
+
+[package.extras]
+fixture = ["fixtures"]
+test = ["fixtures", "mock", "purl", "pytest", "sphinx", "testrepository (>=0.0.18)", "testtools", "requests-futures"]
+
+[[package]]
 name = "rfc3986"
 version = "1.5.0"
 description = "Validating URI References per RFC 3986"
@@ -587,7 +603,7 @@ testing = ["coverage (>=6.2)", "coverage-enable-subprocess (>=1)", "flaky (>=3.7
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "6ba28a4d7e5178dcd21eefe65a1e77af552bae9ff3d621db2a2b102d8a0a0ea8"
+content-hash = "d7b02a8c9fa2afe4734f3781dd644cdf50caa2809086c8db8d663ae4e06a9b86"
 
 [metadata.files]
 anyio = []
@@ -627,6 +643,7 @@ pyparsing = []
 pytest = []
 pyyaml = []
 requests = []
+requests-mock = []
 rfc3986 = []
 sentinels = []
 six = []

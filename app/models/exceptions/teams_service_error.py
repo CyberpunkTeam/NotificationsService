@@ -1,0 +1,2 @@
+class TeamsServiceError(Exception):
+    pass

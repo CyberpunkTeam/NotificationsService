@@ -10,3 +10,5 @@ if DATABASE_USER is not None and DATABASE_PASSWORD is not None:
 
 
 DATABASE_NAME = os.environ.get("DATABASE_NAME", "test")
+TEAMS_SERVICE_URL = os.environ.get("TEAMS_URL", "http://teamservice.com/")
+USERS_SERVICE_URL = os.environ.get("USERS_URL", "http://userservice.com/")
