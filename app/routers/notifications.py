@@ -10,7 +10,9 @@ from app.repositories.notifications_repository import NotificationsRepository
 router = APIRouter()
 
 # Repository
-user_repository = NotificationsRepository(config.DATABASE_URL, config.DATABASE_NAME)
+notification_repository = NotificationsRepository(
+    config.DATABASE_URL, config.DATABASE_NAME
+)
 
 
 @router.post(
@@ -21,11 +23,11 @@ user_repository = NotificationsRepository(config.DATABASE_URL, config.DATABASE_N
 )
 async def create_notification(notification: Notifications):
 
-    return NotificationsController.post(user_repository, notification)
+    return NotificationsController.post(notification_repository, notification)
 
 
 @router.get(
     "/notifications/", tags=["notifications"], response_model=List[Notifications]
 )
 async def list_notifications(receiver_id: str):
-    return NotificationsController.get(user_repository, receiver_id)
+    return NotificationsController.get(notification_repository, receiver_id)
