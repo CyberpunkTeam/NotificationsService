@@ -6,4 +6,4 @@ Feature: CRUD Notification
 
     When invito al usuario "Matias Fonseca" para que sea miembro del equipo
 
-    Then a "Matias Fonseca" le llega una notificacion
+    Then a "Matias Fonseca" le llega una notificacion de invitacion a equipo

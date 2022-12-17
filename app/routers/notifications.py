@@ -19,8 +19,9 @@ user_repository = NotificationsRepository(config.DATABASE_URL, config.DATABASE_N
     response_model=Notifications,
     status_code=201,
 )
-async def create_notification(user: Notifications):
-    return NotificationsController.post(user_repository, user)
+async def create_notification(notification: Notifications):
+
+    return NotificationsController.post(user_repository, notification)
 
 
 @router.get(
