@@ -1,8 +1,4 @@
-import requests_mock
 from behave import *
-
-from app.services.teams_service import TeamsService
-from app.services.users_service import UsersService
 
 
 @given("que cree un equipo y soy owner de el")
@@ -25,13 +21,6 @@ def step_impl(context, name):
     url = "/notifications"
     uid = "2"
     tid = "14453"
-    body = {
-        "sender_id": uid,
-        "receiver_id": f"{len(name)}",
-        "notification_type": "TEAM_INVITATION",
-        "resource": "TEAM",
-        "resource_id": tid,
-    }
 
     json_headers = {"Content-Type": "application/json", "Accept": "application/json"}
     team_name = "Aliados"
@@ -52,24 +41,17 @@ def step_impl(context, name):
         "uid": uid,
     }
 
-    with requests_mock.Mocker() as m:
-        m.get(
-            TeamsService.URL + TeamsService.RESOURCE_ENDPOINT + tid,
-            headers=json_headers,
-            status_code=200,
-            json=team_body,
-        )
+    body = {
+        "sender_id": uid,
+        "receiver_id": f"{len(name)}",
+        "notification_type": "TEAM_INVITATION",
+        "resource": "TEAM",
+        "resource_id": tid,
+        "metadata": {"user": user_body, "team": team_body},
+    }
+    response = context.client.post(url, json=body, headers=headers)
 
-        m.get(
-            UsersService.URL + UsersService.RESOURCE_ENDPOINT + uid,
-            headers=json_headers,
-            status_code=200,
-            json=user_body,
-        )
-
-        response = context.client.post(url, json=body, headers=headers)
-
-        assert response.status_code == 201
+    assert response.status_code == 201
 
 
 @then('a "{name}" le llega una notificacion de invitacion a equipo')
