@@ -11,6 +11,7 @@ class Notifications(BaseModel):
     resource: str
     resource_id: str
     content: Optional[str]
+    metadata: Optional[dict]
 
     def to_json(self):
         return loads(self.json(exclude_defaults=True))
