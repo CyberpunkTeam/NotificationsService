@@ -3,90 +3,48 @@ from unittest.mock import Mock
 import pytest
 from fastapi import HTTPException
 
-from app.controllers.user_controller import UserController
-from app.models.users import Users
+from app.controllers.notifications_controller import NotificationsController
+from app.models.notifications import Notifications
 
 
-def test_get_all_user():
+def test_get_notification_by_receiver_id():
     repository = Mock()
-    repository.get.return_value = [
-        Users(
-            name="Martin",
-            lastname="Lopez",
-            email="tincho_lopez@gmail.com",
-            location="CABA",
-        ),
-        Users(
-            name="Juan", lastname="Gomez", email="juan_gomez@gmail.com", location="CABA"
-        ),
-    ]
-    result = UserController.get(repository)
-    assert len(result) == 2
+    receiver_id = "2"
+    notification = Notifications(
+        sender_id="1",
+        receiver_id=receiver_id,
+        notification_type="TEAM_INVITATION",
+        resource="TEAM",
+        resource_id="3",
+    )
+    repository.get.return_value = [notification]
+    result = NotificationsController.get(repository, receiver_id)
+    assert result[0].receiver_id == receiver_id
 
 
-def test_get_top_user():
-    repository = Mock()
-    repository.get.return_value = [
-        Users(
-            name="Martin",
-            lastname="Lopez",
-            email="tincho_lopez@gmail.com",
-            location="CABA",
-        ),
-        Users(
-            name="Juan", lastname="Gomez", email="juan_gomez@gmail.com", location="CABA"
-        ),
-    ]
-    result = UserController.get(repository, top=True)
-    assert result.name == "Martin"
-
-
-def test_get_user():
-    repository = Mock()
-    repository.get.return_value = [
-        Users(
-            name="Martin",
-            lastname="Lopez",
-            email="tincho_lopez@gmail.com",
-            location="CABA",
-        )
-    ]
-    result = UserController.get(repository, email="tincho_lopez@gmail.com", top=True)
-    assert result.name == "Martin"
-
-
-def test_error_user_not_found():
-    repository = Mock()
-    repository.get.return_value = []
-    with pytest.raises(HTTPException):
-        UserController.get(repository, email="tincho_lopez@gmail.com", top=True)
-
-
-def test_create_user():
+def test_create_notification():
     repository = Mock()
     repository.insert.return_value = True
-    user = (
-        Users(
-            name="Martin",
-            lastname="Lopez",
-            email="tincho_lopez@gmail.com",
-            location="CABA",
-        ),
+    notification = Notifications(
+        sender_id="1",
+        receiver_id="2",
+        notification_type="TEAM_INVITATION",
+        resource="TEAM",
+        resource_id="3",
     )
-    result = UserController.post(repository, user)
-    assert result == user
+    result = NotificationsController.post(repository, notification)
+    assert result == notification
 
 
 def test_error_create_user():
     repository = Mock()
     repository.insert.return_value = False
-    user = (
-        Users(
-            name="Martin",
-            lastname="Lopez",
-            email="tincho_lopez@gmail.com",
-            location="CABA",
-        ),
+    notification = Notifications(
+        sender_id="1",
+        receiver_id="2",
+        notification_type="TEAM_INVITATION",
+        resource="TEAM",
+        resource_id="3",
     )
     with pytest.raises(HTTPException):
-        UserController.post(repository, user)
+        NotificationsController.post(repository, notification)
