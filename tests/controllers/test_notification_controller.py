@@ -1,13 +1,11 @@
 from unittest.mock import Mock
 
 import pytest
-import requests_mock
+
 from fastapi import HTTPException
 
 from app.controllers.notifications_controller import NotificationsController
 from app.models.notifications import Notifications
-from app.services.teams_service import TeamsService
-from app.services.users_service import UsersService
 
 
 def test_get_notification_by_receiver_id():
