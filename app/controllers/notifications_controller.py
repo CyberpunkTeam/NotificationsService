@@ -15,12 +15,13 @@ class NotificationsController:
                 raise HTTPException(
                     status_code=400, detail="Invalid type of notification"
                 )
-
+            print("el tipo de noficacion es valido")
             Contents.complete(notification)
-
+            print("termino de completar el contenido")
             ok = repository.insert(notification)
             if not ok:
                 raise HTTPException(status_code=500, detail="Error saving")
+            print("termino de insertar en el repositorio")
             return notification
         except UsersServiceError:
             raise HTTPException(

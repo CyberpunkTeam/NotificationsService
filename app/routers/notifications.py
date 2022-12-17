@@ -22,7 +22,7 @@ notification_repository = NotificationsRepository(
     status_code=201,
 )
 async def create_notification(notification: Notifications):
-
+    print("entra a crear notificacion")
     return NotificationsController.post(notification_repository, notification)
 
 
