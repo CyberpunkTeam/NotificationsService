@@ -15,4 +15,6 @@ class UsersService:
             team_info = response.json()
             return team_info.get("name") + " " + team_info.get("lastname")
         else:
+            print(f"response status: {response.status_code}")
+            print(f"content: {response.content}")
             raise UsersServiceError()
