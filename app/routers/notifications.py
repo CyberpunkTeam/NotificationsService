@@ -27,5 +27,5 @@ async def create_notification(notification: Notifications):
 @router.get(
     "/notifications", tags=["notifications"], response_model=List[Notifications]
 )
-async def list_users(receiver_id: str):
+async def list_notifications(receiver_id: str):
     return NotificationsController.get(user_repository, receiver_id)
