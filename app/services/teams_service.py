@@ -15,4 +15,6 @@ class TeamsService:
             team_info = response.json()
             return team_info.get("name")
         else:
+            print(f"response status: {response.status_code}")
+            print(f"content: {response.content}")
             raise TeamsServiceError()
