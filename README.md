@@ -1,7 +1,7 @@
 # Notifications Service
 
 [![.github/workflows/pipeline.yml](https://github.com/CyberpunkTeam/UserService/actions/workflows/pipeline.yml/badge.svg)](https://github.com/CyberpunkTeam/UserService/actions/workflows/pipeline.yml)
-[![Coverage Status](https://coveralls.io/repos/github/CyberpunkTeam/UserService/badge.svg?branch=master)](https://coveralls.io/github/CyberpunkTeam/UserService?branch=master)
+[![codecov](https://codecov.io/gh/CyberpunkTeam/NotificationsService/branch/master/graph/badge.svg?token=DAIXAPP5WQ)](https://codecov.io/gh/CyberpunkTeam/NotificationsService)
 
 
 ## Setup
