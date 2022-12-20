@@ -5,5 +5,7 @@ poetry config virtualenvs.create false \
 
 coverage run --source=app -m behave
 coverage run -a --source=app -m pytest tests/
+curl -Os https://uploader.codecov.io/latest/linux/codecov
 
-coveralls
+chmod +x codecov
+./codecov

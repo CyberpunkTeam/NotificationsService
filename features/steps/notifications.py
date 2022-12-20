@@ -22,7 +22,6 @@ def step_impl(context, name):
     uid = "2"
     tid = "14453"
 
-    json_headers = {"Content-Type": "application/json", "Accept": "application/json"}
     team_name = "Aliados"
     team_body = {
         "name": team_name,
