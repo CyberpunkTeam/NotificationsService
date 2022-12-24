@@ -14,7 +14,8 @@ class NotificationsController:
 
         Contents.complete(notification)
         notification.metadata = None
-
+        notification.viewed = False
+        notification.nid = Notifications.get_nid()
         ok = repository.insert(notification)
         if not ok:
             raise HTTPException(status_code=500, detail="Error saving")
@@ -22,6 +23,16 @@ class NotificationsController:
         return notification
 
     @staticmethod
-    def get(repository, sender_id):
-        result = repository.get(sender_id)
+    def get(repository, receiver_id=None, nid=None):
+        result = repository.get(receiver_id=receiver_id, nid=nid)
         return result
+
+    @staticmethod
+    def put(repository, nid, notification):
+        notification.nid = nid
+        ok = repository.put(notification)
+        if not ok:
+            raise HTTPException(status_code=500, detail="Error to update")
+
+        notification_updated = repository.get(nid=nid)
+        return notification_updated
