@@ -15,6 +15,7 @@ class Notifications(BaseModel):
     content: Optional[str]
     metadata: Optional[dict] = None
     viewed: Optional[bool]
+    created_date: Optional[str]
 
     def to_json(self):
         return loads(self.json(exclude_defaults=True))
@@ -30,6 +31,7 @@ class Notifications(BaseModel):
             "resource_id": str,
             "content": str,
             "viewed": bool,
+            "created_date": str,
         }
 
     @staticmethod

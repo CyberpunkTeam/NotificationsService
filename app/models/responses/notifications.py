@@ -12,3 +12,4 @@ class Notifications(BaseModel):
     resource_id: str
     content: Optional[str]
     viewed: Optional[bool]
+    created_date: Optional[str]

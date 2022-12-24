@@ -1,5 +1,5 @@
 from fastapi import HTTPException
-
+from datetime import datetime
 from app.models.contents import Contents
 from app.models.notification_types import NotificationTypes
 from app.models.notifications import Notifications
@@ -16,6 +16,10 @@ class NotificationsController:
         notification.metadata = None
         notification.viewed = False
         notification.nid = Notifications.get_nid()
+
+        local = datetime.now()
+        notification.created_date = local.strftime("%d-%m-%Y:%H:%M:%S")
+
         ok = repository.insert(notification)
         if not ok:
             raise HTTPException(status_code=500, detail="Error saving")

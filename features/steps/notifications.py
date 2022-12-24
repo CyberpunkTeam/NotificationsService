@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from behave import *
 
 
@@ -65,10 +67,14 @@ def step_impl(context, name):
     response = context.client.get(url)
 
     assert response.status_code == 200
+    notification = response.json()[0]
     assert (
-        response.json()[0].get("content")
-        == "Gonzalo Marino te ha invitado al equipo Aliados"
+        notification.get("content") == "Gonzalo Marino te ha invitado al equipo Aliados"
     )
+    local = datetime.now()
+
+    created_date_expected = local.strftime("%d-%m-%Y")
+    assert notification.get("created_date").split(":")[0] == created_date_expected
 
 
 @given("que recibi una notificacion")
