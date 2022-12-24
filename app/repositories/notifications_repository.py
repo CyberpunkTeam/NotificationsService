@@ -14,12 +14,20 @@ class NotificationsRepository(DataBase):
         else:
             super().__init__(url, db_name)
 
-    def get(self, sender_id=None):
-        if sender_id is None:
+    def get(self, receiver_id=None, nid=None):
+        if receiver_id is None and nid is None:
             return self.filter(self.COLLECTION_NAME, {}, output_model=Notifications)
-        return self.find_by(
-            self.COLLECTION_NAME, "receiver_id", sender_id, output_model=Notifications
-        )
+        elif nid is not None:
+            return self.find_by(
+                self.COLLECTION_NAME, "nid", nid, output_model=Notifications
+            )
+        else:
+            return self.find_by(
+                self.COLLECTION_NAME,
+                "receiver_id",
+                receiver_id,
+                output_model=Notifications,
+            )
 
     def insert(self, notification: Notifications):
         return self.save(self.COLLECTION_NAME, notification)
@@ -27,3 +35,6 @@ class NotificationsRepository(DataBase):
     @staticmethod
     def create_repository(url, database_name):
         return NotificationsRepository(url, database_name)
+
+    def put(self, notification: Notifications):
+        return self.update(self.COLLECTION_NAME, "nid", notification.nid, notification)
