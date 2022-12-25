@@ -20,7 +20,7 @@ notification_repository = NotificationsRepository(
 @router.post(
     "/notifications/",
     tags=["notifications"],
-    response_model=Notifications,
+    response_model=NotificationsResponse,
     status_code=201,
 )
 async def create_notification(notification: Notifications):
