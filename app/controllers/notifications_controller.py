@@ -3,6 +3,7 @@ from datetime import datetime
 from app.models.contents import Contents
 from app.models.notification_types import NotificationTypes
 from app.models.notifications import Notifications
+from app.models.requests.notification_update import NotificationUpdate
 
 
 class NotificationsController:
@@ -39,4 +40,17 @@ class NotificationsController:
             raise HTTPException(status_code=500, detail="Error to update")
 
         notification_updated = repository.get(nid=nid)
-        return notification_updated
+        return notification_updated[0]
+
+    @staticmethod
+    def put_many_viewed(repository, nids):
+        result = []
+        for nid in nids:
+            try:
+                notification = NotificationsController.put(
+                    repository, nid, NotificationUpdate(viewed=True)
+                )
+                result.append(notification)
+            except:
+                pass
+        return result

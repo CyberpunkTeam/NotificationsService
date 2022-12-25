@@ -9,8 +9,8 @@ Feature: CRUD Notification
     Then a "Matias Fonseca" le llega una notificacion de invitacion a equipo
 
   Scenario: Update notification
-    Given que recibi una notificacion
+    Given que recibi dos notificaciones
 
-    When cuando la abro
+    When cuando la seccion de notificaciones
 
-    Then se marca como vista
+    Then se marcan como vistas

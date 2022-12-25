@@ -77,7 +77,7 @@ def step_impl(context, name):
     assert notification.get("created_date").split(":")[0] == created_date_expected
 
 
-@given("que recibi una notificacion")
+@given("que recibi dos notificaciones")
 def step_impl(context):
     """
     :type context: behave.runner.Context
@@ -116,13 +116,40 @@ def step_impl(context):
         "metadata": {"user": user_body, "team": team_body},
     }
     response = context.client.post(url, json=body, headers=headers)
+    nids = []
+    assert response.status_code == 201
+    nids.append(response.json()["nid"])
+    body = {
+        "sender_id": uid,
+        "receiver_id": receiver_id,
+        "notification_type": "TEAM_INVITATION",
+        "resource": "TEAM",
+        "resource_id": tid,
+        "metadata": {"user": user_body, "team": team_body},
+    }
+    response = context.client.post(url, json=body, headers=headers)
 
     assert response.status_code == 201
-    context.vars["nid"] = response.json()["nid"]
+
+    nids.append(response.json()["nid"])
+    context.vars["nids"] = nids
     context.vars["receiver_id"] = receiver_id
 
 
-@when("cuando la abro")
+@when("cuando la seccion de notificaciones")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+
+    url = f"/notifications/viewed/?nids=[{','.join(context.vars['nids'])}]"
+    mimetype = "application/json"
+    headers = {"Content-Type": mimetype, "Accept": mimetype}
+    response = context.client.put(url, json={"viewed": True}, headers=headers)
+    assert response.status_code == 200
+
+
+@then("se marcan como vistas")
 def step_impl(context):
     """
     :type context: behave.runner.Context
@@ -131,24 +158,5 @@ def step_impl(context):
     response = context.client.get(url)
     assert response.status_code == 200
     notifications = response.json()
-    notification = notifications[0]
-    nid = notification.get("nid")
-
-    url = "/notifications/" + nid
-    mimetype = "application/json"
-    headers = {"Content-Type": mimetype, "Accept": mimetype}
-    response = context.client.put(url, json={"viewed": True}, headers=headers)
-    assert response.status_code == 200
-
-
-@then("se marca como vista")
-def step_impl(context):
-    """
-    :type context: behave.runner.Context
-    """
-    url = "/notifications/" + context.vars["receiver_id"]
-    response = context.client.get(url)
-    assert response.status_code == 200
-    notifications = response.json()
-    notification = notifications[0]
-    assert notification.get("viewed") is True
+    for notification in notifications:
+        assert notification.get("viewed") is True
