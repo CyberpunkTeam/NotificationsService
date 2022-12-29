@@ -1,4 +1,7 @@
-from app.models.contents import Contents, TeamInvitationContent
+from app.models.contents import Contents, TeamInvitationContent, TeamPostulationContent
+from app.models.contents.team_postulation_response_content import (
+    TeamPostulationResponseContent,
+)
 from app.models.notifications import Notifications
 
 
@@ -35,6 +38,66 @@ def test_get_content_for_team_invitation():
 
     expected_content = TeamInvitationContent.CONTENT.format(
         user_name + " " + user_lastname, team_name
+    )
+
+    assert expected_content == notification.content
+
+
+def test_get_content_for_team_postulation():
+
+    project_name = "Aliados"
+    project_body = {
+        "name": project_name,
+        "technologies": ["python"],
+        "project_preferences": ["web"],
+        "owner": "1234",
+    }
+    tid = "1"
+    team_name = "Alfa"
+    team_body = {
+        "name": team_name,
+    }
+
+    notification = Notifications(
+        sender_id=tid,
+        receiver_id="2",
+        notification_type="TEAM_POSTULATION",
+        resource="TEAM_POSTULATION",
+        resource_id="1234",
+        metadata={"team": team_body, "project": project_body},
+    )
+
+    Contents.complete(notification)
+
+    expected_content = TeamPostulationContent.CONTENT.format(team_name, project_name)
+
+    assert expected_content == notification.content
+
+
+def test_get_content_for_team_postulation_response():
+
+    project_name = "Aliados"
+    project_body = {
+        "name": project_name,
+        "technologies": ["python"],
+        "project_preferences": ["web"],
+        "owner": "1234",
+    }
+    response = "ACCEPTED"
+
+    notification = Notifications(
+        sender_id="12",
+        receiver_id="2",
+        notification_type="TEAM_POSTULATION_RESPONSE",
+        resource="TEAM_POSTULATION",
+        resource_id="1234",
+        metadata={"response": response, "project": project_body},
+    )
+
+    Contents.complete(notification)
+
+    expected_content = TeamPostulationResponseContent.CONTENT.format(
+        "acepto", project_name
     )
 
     assert expected_content == notification.content
