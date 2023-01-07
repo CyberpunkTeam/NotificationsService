@@ -1,4 +1,5 @@
 from app.models.contents.abandoned_project_content import AbandonedProjectContent
+from app.models.contents.project_abandons_request import ProjectAbandonsRequestContent
 from app.models.contents.project_finished_content import ProjectFinishedContent
 from app.models.contents.project_finished_request_content import (
     ProjectFinishedRequestContent,
@@ -18,6 +19,7 @@ class Contents:
         "PROJECT_FINISHED": ProjectFinishedContent,
         "PROJECT_FINISHED_REQUEST": ProjectFinishedRequestContent,
         "ABANDONED_PROJECT": AbandonedProjectContent,
+        "PROJECT_ABANDONS_REQUEST": ProjectAbandonsRequestContent,
     }
 
     @staticmethod

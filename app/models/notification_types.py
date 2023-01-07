@@ -6,6 +6,7 @@ class NotificationTypes:
         "PROJECT_FINISHED",
         "PROJECT_FINISHED_REQUEST",
         "ABANDONED_PROJECT",
+        "PROJECT_ABANDONS_REQUEST",
     ]
 
     @staticmethod
