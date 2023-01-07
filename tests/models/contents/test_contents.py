@@ -1,4 +1,12 @@
-from app.models.contents import Contents, TeamInvitationContent, TeamPostulationContent
+from app.models.contents import (
+    Contents,
+    TeamInvitationContent,
+    TeamPostulationContent,
+    AbandonedProjectContent,
+    ProjectFinishedContent,
+    ProjectFinishedRequestContent,
+    ProjectAbandonsRequestContent,
+)
 from app.models.contents.team_postulation_response_content import (
     TeamPostulationResponseContent,
 )
@@ -44,7 +52,6 @@ def test_get_content_for_team_invitation():
 
 
 def test_get_content_for_team_postulation():
-
     project_name = "Aliados"
     project_body = {
         "name": project_name,
@@ -75,7 +82,6 @@ def test_get_content_for_team_postulation():
 
 
 def test_get_content_for_team_postulation_response():
-
     project_name = "Aliados"
     project_body = {
         "name": project_name,
@@ -98,6 +104,136 @@ def test_get_content_for_team_postulation_response():
 
     expected_content = TeamPostulationResponseContent.CONTENT.format(
         "acepto", project_name
+    )
+
+    assert expected_content == notification.content
+
+
+def test_get_content_for_abandoned_project():
+    project_name = "Aliados"
+    pid = "12"
+    project_body = {
+        "pid": pid,
+        "name": project_name,
+        "technologies": ["python"],
+        "project_preferences": ["web"],
+        "owner": "1234",
+    }
+    tid = "1"
+    team_name = "Alfa"
+    team_body = {
+        "name": team_name,
+    }
+
+    notification = Notifications(
+        sender_id=tid,
+        receiver_id=pid,
+        notification_type="ABANDONED_PROJECT",
+        resource="PROJECT",
+        resource_id=pid,
+        metadata={"team": team_body, "project": project_body},
+    )
+
+    Contents.complete(notification)
+
+    expected_content = AbandonedProjectContent.CONTENT.format(team_name, project_name)
+
+    assert expected_content == notification.content
+
+
+def test_get_content_for_project_finished():
+    project_name = "Aliados"
+    pid = "12"
+    project_body = {
+        "pid": pid,
+        "name": project_name,
+        "technologies": ["python"],
+        "project_preferences": ["web"],
+        "owner": "1234",
+    }
+    tid = "1"
+    team_name = "Alfa"
+    team_body = {
+        "name": team_name,
+    }
+
+    notification = Notifications(
+        sender_id=tid,
+        receiver_id=pid,
+        notification_type="PROJECT_FINISHED",
+        resource="PROJECT",
+        resource_id=pid,
+        metadata={"project": project_body},
+    )
+
+    Contents.complete(notification)
+
+    expected_content = ProjectFinishedContent.CONTENT.format(project_name)
+
+    assert expected_content == notification.content
+
+
+def test_get_content_for_project_finished_request():
+    project_name = "Aliados"
+    pid = "12"
+    project_body = {
+        "pid": pid,
+        "name": project_name,
+        "technologies": ["python"],
+        "project_preferences": ["web"],
+        "owner": "1234",
+    }
+    tid = "1"
+    team_name = "Alfa"
+    team_body = {
+        "name": team_name,
+    }
+
+    notification = Notifications(
+        sender_id=pid,
+        receiver_id=tid,  # owner team id
+        notification_type="PROJECT_FINISHED_REQUEST",
+        resource="PROJECT",
+        resource_id=pid,
+        metadata={"project": project_body},
+    )
+
+    Contents.complete(notification)
+
+    expected_content = ProjectFinishedRequestContent.CONTENT.format(project_name)
+
+    assert expected_content == notification.content
+
+
+def test_get_content_for_project_abandons_request():
+    project_name = "Aliados"
+    pid = "12"
+    project_body = {
+        "pid": pid,
+        "name": project_name,
+        "technologies": ["python"],
+        "project_preferences": ["web"],
+        "owner": "1234",
+    }
+    tid = "1"
+    team_name = "Alfa"
+    team_body = {
+        "name": team_name,
+    }
+
+    notification = Notifications(
+        sender_id=tid,
+        receiver_id=pid,
+        notification_type="PROJECT_ABANDONS_REQUEST",
+        resource="PROJECT_ABANDONS_REQUEST",
+        resource_id=pid,  # par_id
+        metadata={"team": team_body, "project": project_body},
+    )
+
+    Contents.complete(notification)
+
+    expected_content = ProjectAbandonsRequestContent.CONTENT.format(
+        team_name, project_name
     )
 
     assert expected_content == notification.content
