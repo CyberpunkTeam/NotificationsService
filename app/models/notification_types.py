@@ -1,5 +1,12 @@
 class NotificationTypes:
-    TYPES = ["TEAM_INVITATION", "TEAM_POSTULATION", "TEAM_POSTULATION_RESPONSE"]
+    TYPES = [
+        "TEAM_INVITATION",
+        "TEAM_POSTULATION",
+        "TEAM_POSTULATION_RESPONSE",
+        "PROJECT_FINISHED",
+        "PROJECT_FINISHED_REQUEST",
+        "ABANDONED_PROJECT",
+    ]
 
     @staticmethod
     def is_valid_type(notification_type):
