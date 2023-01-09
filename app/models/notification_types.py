@@ -7,6 +7,8 @@ class NotificationTypes:
         "PROJECT_FINISHED_REQUEST",
         "ABANDONED_PROJECT",
         "PROJECT_ABANDONS_REQUEST",
+        "NEW_TEAM_MEMBERS",
+        "TEAM_ASSIGNED",
     ]
 
     @staticmethod
