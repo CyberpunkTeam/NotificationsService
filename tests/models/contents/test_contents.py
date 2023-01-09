@@ -6,6 +6,8 @@ from app.models.contents import (
     ProjectFinishedContent,
     ProjectFinishedRequestContent,
     ProjectAbandonsRequestContent,
+    TeamAssignedContent,
+    NewTeamMemberContent,
 )
 from app.models.contents.team_postulation_response_content import (
     TeamPostulationResponseContent,
@@ -235,5 +237,70 @@ def test_get_content_for_project_abandons_request():
     expected_content = ProjectAbandonsRequestContent.CONTENT.format(
         team_name, project_name
     )
+
+    assert expected_content == notification.content
+
+
+def test_get_content_team_assigned():
+    project_name = "Aliados"
+    pid = "12"
+    project_body = {
+        "pid": pid,
+        "name": project_name,
+        "technologies": ["python"],
+        "project_preferences": ["web"],
+        "owner": "1234",
+    }
+    tid = "1"
+    team_name = "Alfa"
+    team_body = {
+        "name": team_name,
+    }
+
+    notification = Notifications(
+        sender_id=tid,
+        receiver_id=pid,
+        notification_type="TEAM_ASSIGNED",
+        resource="PROJECT",
+        resource_id=pid,
+        metadata={"team": team_body, "project": project_body},
+    )
+
+    Contents.complete(notification)
+
+    expected_content = TeamAssignedContent.CONTENT.format(team_name, project_name)
+
+    assert expected_content == notification.content
+
+
+def test_get_content_new_team_member():
+    uid = "1"
+    user_name = "Matias"
+    user_lastname = "Fonseca"
+    user_body = {
+        "name": user_name,
+        "lastname": user_lastname,
+        "location": "location",
+        "email": "email",
+        "uid": uid,
+    }
+    tid = "1"
+    team_name = "Alfa"
+    team_body = {
+        "name": team_name,
+    }
+
+    notification = Notifications(
+        sender_id=uid,
+        receiver_id="team_owner",
+        notification_type="NEW_TEAM_MEMBERS",
+        resource="TEAM",
+        resource_id=tid,
+        metadata={"team": team_body, "user": user_body},
+    )
+
+    Contents.complete(notification)
+
+    expected_content = NewTeamMemberContent.CONTENT.format(user_name, team_name)
 
     assert expected_content == notification.content
