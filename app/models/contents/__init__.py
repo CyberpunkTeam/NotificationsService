@@ -7,7 +7,7 @@ from app.models.contents.project_finished_content import ProjectFinishedContent
 from app.models.contents.project_finished_request_content import (
     ProjectFinishedRequestContent,
 )
-from app.models.contents.team_assigned_content import TeamAssignedContent
+
 from app.models.contents.team_invitation_content import TeamInvitationContent
 from app.models.contents.team_postulation_content import TeamPostulationContent
 from app.models.contents.team_postulation_response_content import (
@@ -25,7 +25,6 @@ class Contents:
         "ABANDONED_PROJECT": AbandonedProjectContent,
         "PROJECT_ABANDONS_REQUEST": ProjectAbandonsRequestContent,
         "NEW_TEAM_MEMBERS": NewTeamMemberContent,
-        "TEAM_ASSIGNED": TeamAssignedContent,
     }
 
     @staticmethod
