@@ -1,5 +1,5 @@
 class TeamPostulationResponseContent:
-    CONTENT = "se {} tu postulación al projecto {}"
+    CONTENT = "Se {} tu postulación al proyecto {}"
 
     @staticmethod
     def complete(notification):
