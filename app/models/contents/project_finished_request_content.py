@@ -1,5 +1,5 @@
 class ProjectFinishedRequestContent:
-    CONTENT = "Confirmación de finilización de proyecto {}"
+    CONTENT = "Confirmación de finalización de proyecto {}"
 
     @staticmethod
     def complete(notification):
