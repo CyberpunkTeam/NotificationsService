@@ -157,19 +157,19 @@ def test_get_content_for_project_finished():
     team_body = {
         "name": team_name,
     }
-
+    response = "ACCEPTED"
     notification = Notifications(
         sender_id=tid,
         receiver_id=pid,
         notification_type="PROJECT_FINISHED",
         resource="PROJECT",
         resource_id=pid,
-        metadata={"project": project_body},
+        metadata={"project": project_body, "response": response},
     )
-
+    response = "aceptada" if response == "ACCEPTED" else "rechazada"
     Contents.complete(notification)
 
-    expected_content = ProjectFinishedContent.CONTENT.format(project_name)
+    expected_content = ProjectFinishedContent.CONTENT.format(project_name, response)
 
     assert expected_content == notification.content
 
