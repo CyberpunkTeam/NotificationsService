@@ -157,7 +157,7 @@ def test_get_content_for_project_finished():
     team_body = {
         "name": team_name,
     }
-    response = "ACCEPTED"
+    response = "REJECTED"
     notification = Notifications(
         sender_id=tid,
         receiver_id=pid,
