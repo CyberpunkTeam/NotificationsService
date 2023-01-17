@@ -1,5 +1,5 @@
 class ProjectFinishedContent:
-    CONTENT = "La solicitud de finalizacion del proyecto {} fue {}"
+    CONTENT = "La solicitud de finalizacion del proyecto {} fue {}."
 
     @staticmethod
     def complete(notification):
@@ -11,3 +11,7 @@ class ProjectFinishedContent:
         notification.content = ProjectFinishedContent.CONTENT.format(
             project_name, response
         )
+        if metadata.get("response") == "ACCEPTED":
+            notification.content += (
+                " Haz la review del equipo para finalizar el proyecto."
+            )
