@@ -11,7 +11,7 @@ class AbandonedProjectContent:
         response = "aceptada" if metadata.get("response") == "ACCEPTED" else "rechazada"
         request_id = metadata.get("request_id")
         if request_id is not None:
-            notification.content = AbandonedProjectContent.CONTENT.format(
+            notification.content = AbandonedProjectContent.CONTENT_REQUEST.format(
                 project_name, response
             )
         else:
