@@ -13,6 +13,7 @@ from app.models.contents.team_postulation_content import TeamPostulationContent
 from app.models.contents.team_postulation_response_content import (
     TeamPostulationResponseContent,
 )
+from app.models.contents.team_review_content import TeamReviewContent
 
 
 class Contents:
@@ -25,6 +26,7 @@ class Contents:
         "ABANDONED_PROJECT": AbandonedProjectContent,
         "PROJECT_ABANDONS_REQUEST": ProjectAbandonsRequestContent,
         "NEW_TEAM_MEMBERS": NewTeamMemberContent,
+        "TEAM_REVIEW": TeamReviewContent,
     }
 
     @staticmethod
