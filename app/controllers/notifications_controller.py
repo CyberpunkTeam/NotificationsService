@@ -1,6 +1,7 @@
 from fastapi import HTTPException
 from datetime import datetime
 from app.models.contents import Contents
+from app.models.metadata import Metadata
 from app.models.notification_types import NotificationTypes
 from app.models.notifications import Notifications
 from app.models.requests.notification_update import NotificationUpdate
@@ -14,7 +15,7 @@ class NotificationsController:
             raise HTTPException(status_code=400, detail="Invalid type of notification")
 
         Contents.complete(notification)
-        notification.metadata = None
+        Metadata.complete(notification)
         notification.viewed = False
         notification.nid = Notifications.get_nid()
 
