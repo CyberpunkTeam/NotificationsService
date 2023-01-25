@@ -13,3 +13,4 @@ class Notifications(BaseModel):
     content: Optional[str]
     viewed: Optional[bool]
     created_date: Optional[str]
+    metadata: Optional[dict]
