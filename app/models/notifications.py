@@ -32,6 +32,7 @@ class Notifications(BaseModel):
             "content": str,
             "viewed": bool,
             "created_date": str,
+            "metadata": str,
         }
 
     @staticmethod
