@@ -9,6 +9,7 @@ class NotificationTypes:
         "PROJECT_ABANDONS_REQUEST",
         "NEW_TEAM_MEMBERS",
         "TEAM_REVIEW",
+        "NEW_TEAM_CANDIDATE",
     ]
 
     @staticmethod
