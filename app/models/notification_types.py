@@ -10,6 +10,7 @@ class NotificationTypes:
         "NEW_TEAM_MEMBERS",
         "TEAM_REVIEW",
         "NEW_TEAM_CANDIDATE",
+        "TEAM_POSITION_ACCEPTED",
     ]
 
     @staticmethod

@@ -10,6 +10,9 @@ from app.models.contents.project_finished_request_content import (
 )
 
 from app.models.contents.team_invitation_content import TeamInvitationContent
+from app.models.contents.team_position_postulation_accepted import (
+    TeamPositionAcceptedContent,
+)
 from app.models.contents.team_postulation_content import TeamPostulationContent
 from app.models.contents.team_postulation_response_content import (
     TeamPostulationResponseContent,
@@ -29,6 +32,7 @@ class Contents:
         "NEW_TEAM_MEMBERS": NewTeamMemberContent,
         "TEAM_REVIEW": TeamReviewContent,
         "NEW_TEAM_CANDIDATE": NewTeamCandidateContent,
+        "TEAM_POSITION_ACCEPTED": TeamPositionAcceptedContent,
     }
 
     @staticmethod

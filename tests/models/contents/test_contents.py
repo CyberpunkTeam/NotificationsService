@@ -9,6 +9,7 @@ from app.models.contents import (
     NewTeamMemberContent,
     TeamReviewContent,
     NewTeamCandidateContent,
+    TeamPositionAcceptedContent,
 )
 from app.models.contents.team_postulation_response_content import (
     TeamPostulationResponseContent,
@@ -333,5 +334,36 @@ def test_get_content_for_new_team_candidate():
     Contents.complete(notification)
 
     expected_content = NewTeamCandidateContent.CONTENT.format(position_title, team_name)
+
+    assert expected_content == notification.content
+
+
+def test_get_content_for_team_position_postulation_accepted():
+    position_title = "Software developer"
+    tpid = "124"
+    tid = "1"
+    team_name = "Alfa"
+    owner = "123141"
+    position_body = {
+        "title": position_title,
+        "tpid": tpid,
+        "team": {"name": team_name, "owner": owner, "tid": tid},
+    }
+
+    mid = "1"
+    notification = Notifications(
+        sender_id=mid,
+        receiver_id=owner,
+        notification_type="TEAM_POSITION_ACCEPTED",
+        resource="TEAMS_POSITIONS",
+        resource_id=tpid,
+        metadata={"position": position_body},
+    )
+
+    Contents.complete(notification)
+
+    expected_content = TeamPositionAcceptedContent.CONTENT.format(
+        position_title, team_name
+    )
 
     assert expected_content == notification.content
