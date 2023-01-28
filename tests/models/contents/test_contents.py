@@ -311,11 +311,14 @@ def test_get_content_for_team_review():
 def test_get_content_for_new_team_candidate():
     position_title = "Software developer"
     tpid = "124"
-    position_body = {"title": position_title, "tpid": tpid}
     tid = "1"
     team_name = "Alfa"
     owner = "123141"
-    team_body = {"name": team_name, "owner": owner, "tid": tid}
+    position_body = {
+        "title": position_title,
+        "tpid": tpid,
+        "team": {"name": team_name, "owner": owner, "tid": tid},
+    }
 
     mid = "1"
     notification = Notifications(
@@ -324,7 +327,7 @@ def test_get_content_for_new_team_candidate():
         notification_type="NEW_TEAM_CANDIDATE",
         resource="TEAMS_POSITIONS",
         resource_id=tpid,
-        metadata={"position": position_body, "team": team_body},
+        metadata={"position": position_body},
     )
 
     Contents.complete(notification)

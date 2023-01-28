@@ -4,9 +4,9 @@ class NewTeamCandidateContent:
     @staticmethod
     def complete(notification):
         metadata = notification.metadata
-
-        position_title = metadata.get("position").get("title")
-        team_name = metadata.get("team").get("name")
+        position = metadata.get("position")
+        position_title = position.get("title")
+        team_name = position.get("team").get("name")
 
         notification.content = NewTeamCandidateContent.CONTENT.format(
             position_title, team_name
