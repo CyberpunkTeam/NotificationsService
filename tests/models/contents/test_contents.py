@@ -237,7 +237,7 @@ def test_get_content_for_project_abandons_request():
     Contents.complete(notification)
 
     expected_content = ProjectAbandonsRequestContent.CONTENT.format(
-        team_name, project_name
+        project_name, team_name
     )
 
     assert expected_content == notification.content
