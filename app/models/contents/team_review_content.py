@@ -1,5 +1,5 @@
 class TeamReviewContent:
-    CONTENT = "Se finalizo el proyecto {}, haz la review de tu equipo {}"
+    CONTENT = "{} project finished, do teammates review of {} team"
 
     @staticmethod
     def complete(notification):

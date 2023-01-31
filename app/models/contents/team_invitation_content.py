@@ -1,5 +1,5 @@
 class TeamInvitationContent:
-    CONTENT = "{} te ha invitado al equipo {}"
+    CONTENT = "{} invited you to join to {} team"
 
     @staticmethod
     def complete(notification):

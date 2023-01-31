@@ -1,5 +1,5 @@
 class ProjectAbandonsRequestContent:
-    CONTENT = "Solicitud de abandono para el equipo {} del proyecto {}"
+    CONTENT = "Request of {} team abandonment of {} project"
 
     @staticmethod
     def complete(notification):

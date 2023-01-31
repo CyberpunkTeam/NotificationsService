@@ -1,5 +1,5 @@
 class TeamPositionAcceptedContent:
-    CONTENT = "Se acepto tu postulacion a para la posicion {} del equipo {}"
+    CONTENT = "Your postulation to {} of {} team was accepted"
 
     @staticmethod
     def complete(notification):

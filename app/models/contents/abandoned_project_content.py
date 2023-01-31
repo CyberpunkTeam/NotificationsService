@@ -1,6 +1,6 @@
 class AbandonedProjectContent:
-    CONTENT = "El equipo {} ha abandonado el proyecto {}"
-    CONTENT_REQUEST = "La solicitud de abandono al proyecto {} fue {}"
+    CONTENT = "{} team has abandoned {} project"
+    CONTENT_REQUEST = "{} project abandonment request was {}"
 
     @staticmethod
     def complete(notification):
@@ -8,7 +8,7 @@ class AbandonedProjectContent:
 
         team_name = metadata.get("team").get("name")
         project_name = metadata.get("project").get("name")
-        response = "aceptada" if metadata.get("response") == "ACCEPTED" else "rechazada"
+        response = "accepted" if metadata.get("response") == "ACCEPTED" else "rejected"
         request_id = metadata.get("request_id")
         if request_id is not None:
             notification.content = AbandonedProjectContent.CONTENT_REQUEST.format(
