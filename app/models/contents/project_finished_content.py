@@ -1,5 +1,4 @@
 class ProjectFinishedContent:
-
     CONTENT = "{} project finalization request was {}"
 
     @staticmethod

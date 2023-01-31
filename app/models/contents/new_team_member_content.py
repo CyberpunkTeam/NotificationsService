@@ -1,5 +1,5 @@
 class NewTeamMemberContent:
-    CONTENT = "{} is a new member of {} team"
+    CONTENT = "{} is now a member of {} team"
 
     @staticmethod
     def complete(notification):

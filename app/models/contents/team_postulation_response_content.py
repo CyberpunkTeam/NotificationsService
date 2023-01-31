@@ -1,6 +1,6 @@
 class TeamPostulationResponseContent:
 
-    CONTENT = "Your project postulation to {} was {}"
+    CONTENT = "Your postulation for {} project was {}"
 
     @staticmethod
     def complete(notification):

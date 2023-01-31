@@ -1,5 +1,5 @@
 class NewTeamCandidateContent:
-    CONTENT = "There is a new candidate for {} position of {} team"
+    CONTENT = "There is a new candidate for the {} position from {} team"
 
     @staticmethod
     def complete(notification):

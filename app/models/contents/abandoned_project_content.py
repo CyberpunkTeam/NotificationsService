@@ -1,5 +1,5 @@
 class AbandonedProjectContent:
-    CONTENT = "{} team has abandoned {} project"
+    CONTENT = "The team {} abandoned {} project"
     CONTENT_REQUEST = "{} project abandonment request was {}"
 
     @staticmethod
