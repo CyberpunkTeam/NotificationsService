@@ -69,7 +69,7 @@ def step_impl(context, name):
     assert response.status_code == 200
     notification = response.json()[0]
     assert (
-        notification.get("content") == "Gonzalo Marino te ha invitado al equipo Aliados"
+        notification.get("content") == "Gonzalo Marino invited you to join Aliados team"
     )
     local = datetime.now()
 

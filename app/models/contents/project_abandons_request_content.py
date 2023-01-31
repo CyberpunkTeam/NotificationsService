@@ -1,5 +1,5 @@
 class ProjectAbandonsRequestContent:
-    CONTENT = "Solicitud de abandono para el equipo {} del proyecto {}"
+    CONTENT = "{}'s project owner requested {} team abandonment"
 
     @staticmethod
     def complete(notification):
@@ -9,5 +9,5 @@ class ProjectAbandonsRequestContent:
         project_name = metadata.get("project").get("name")
 
         notification.content = ProjectAbandonsRequestContent.CONTENT.format(
-            team_name, project_name
+            project_name, team_name
         )
