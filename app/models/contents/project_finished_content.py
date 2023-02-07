@@ -12,6 +12,4 @@ class ProjectFinishedContent:
             project_name, response
         )
         if metadata.get("response") == "ACCEPTED":
-            notification.content += (
-                " Haz la review del equipo para finalizar el proyecto."
-            )
+            notification.content += ". Do team member reviews to finish the project."
