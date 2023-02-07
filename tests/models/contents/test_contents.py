@@ -169,7 +169,7 @@ def test_get_content_for_project_finished():
         resource_id=pid,
         metadata={"project": project_body, "response": response},
     )
-    response = "aceptada" if response == "ACCEPTED" else "rechazada"
+    response = "accepted" if response == "ACCEPTED" else "rejected"
     Contents.complete(notification)
 
     expected_content = ProjectFinishedContent.CONTENT.format(project_name, response)
