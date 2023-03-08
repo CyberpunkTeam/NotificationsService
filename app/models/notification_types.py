@@ -11,6 +11,7 @@ class NotificationTypes:
         "TEAM_REVIEW",
         "NEW_TEAM_CANDIDATE",
         "TEAM_POSITION_ACCEPTED",
+        "PROJECT_INVITATION",
     ]
 
     @staticmethod
