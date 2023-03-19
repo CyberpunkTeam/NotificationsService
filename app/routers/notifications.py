@@ -32,8 +32,15 @@ async def create_notification(notification: Notifications):
     tags=["notifications"],
     response_model=List[NotificationsResponse],
 )
-async def list_notifications(receiver_id: str):
-    return NotificationsController.get(notification_repository, receiver_id=receiver_id)
+async def list_notifications(
+    receiver_id: str = None, resource_id: str = None, sender_id: str = None
+):
+    return NotificationsController.get(
+        notification_repository,
+        receiver_id=receiver_id,
+        resource_id=resource_id,
+        sender_id=sender_id,
+    )
 
 
 @router.get(

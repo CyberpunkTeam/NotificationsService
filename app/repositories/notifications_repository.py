@@ -14,20 +14,22 @@ class NotificationsRepository(DataBase):
         else:
             super().__init__(url, db_name)
 
-    def get(self, receiver_id=None, nid=None):
-        if receiver_id is None and nid is None:
-            return self.filter(self.COLLECTION_NAME, {}, output_model=Notifications)
-        elif nid is not None:
-            return self.find_by(
-                self.COLLECTION_NAME, "nid", nid, output_model=Notifications
-            )
-        else:
-            return self.find_by(
-                self.COLLECTION_NAME,
-                "receiver_id",
-                receiver_id,
-                output_model=Notifications,
-            )
+    def get(self, receiver_id=None, nid=None, sender_id=None, resource_id=None):
+        filters = {}
+
+        if receiver_id is not None:
+            filters["receiver_id"] = receiver_id
+
+        if nid is not None:
+            filters["nid"] = nid
+
+        if sender_id is not None:
+            filters["sender_id"] = sender_id
+
+        if resource_id is not None:
+            filters["resource_id"] = resource_id
+
+        return self.filter(self.COLLECTION_NAME, filters, output_model=Notifications)
 
     def insert(self, notification: Notifications):
         return self.save(self.COLLECTION_NAME, notification)

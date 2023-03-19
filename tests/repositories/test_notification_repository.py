@@ -52,3 +52,9 @@ def test_get_notification():
     assert notification_found.notification_type == "TEAM_INVITATION"
     assert notification_found.resource == "TEAM"
     assert notification_found.resource_id == "3"
+
+    notification_found = repository.get(
+        receiver_id=receiver_id, resource_id="3", sender_id="1"
+    )
+
+    assert len(notification_found) == 1
