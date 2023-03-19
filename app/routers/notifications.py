@@ -32,7 +32,9 @@ async def create_notification(notification: Notifications):
     tags=["notifications"],
     response_model=List[NotificationsResponse],
 )
-async def list_notifications(receiver_id: str, resource_id=str, sender_id=str):
+async def list_notifications(
+    receiver_id: str = None, resource_id: str = None, sender_id: str = None
+):
     return NotificationsController.get(
         notification_repository,
         receiver_id=receiver_id,
