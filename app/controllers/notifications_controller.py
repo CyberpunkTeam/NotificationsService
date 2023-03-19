@@ -29,8 +29,13 @@ class NotificationsController:
         return notification
 
     @staticmethod
-    def get(repository, receiver_id=None, nid=None):
-        result = repository.get(receiver_id=receiver_id, nid=nid)
+    def get(repository, receiver_id=None, nid=None, resource_id=None, sender_id=None):
+        result = repository.get(
+            receiver_id=receiver_id,
+            nid=nid,
+            resource_id=resource_id,
+            sender_id=sender_id,
+        )
         return result
 
     @staticmethod
