@@ -13,6 +13,7 @@ class NotificationTypes:
         "TEAM_POSITION_ACCEPTED",
         "PROJECT_INVITATION",
         "POSITION_INVITATION",
+        "NEW_TEMPORAL_TEAM",
     ]
 
     @staticmethod
