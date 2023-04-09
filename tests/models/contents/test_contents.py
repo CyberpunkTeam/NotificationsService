@@ -12,6 +12,7 @@ from app.models.contents import (
     TeamPositionAcceptedContent,
     ProjectInvitationContent,
     PositionInvitationContent,
+    NewTemporalTeamContent,
 )
 from app.models.contents.team_postulation_response_content import (
     TeamPostulationResponseContent,
@@ -427,5 +428,25 @@ def test_get_content_for_position_invitation():
     Contents.complete(notification)
 
     expected_content = PositionInvitationContent.CONTENT.format(position_title)
+
+    assert expected_content == notification.content
+
+
+def test_get_content_for_new_temporal_team():
+    tid = "1"
+    team_name = "Alfa"
+
+    notification = Notifications(
+        sender_id=tid,
+        receiver_id="1234",  # user
+        notification_type="NEW_TEMPORAL_TEAM",
+        resource="TEAMS",
+        resource_id=tid,
+        metadata={"team": {"name": team_name}},
+    )
+
+    Contents.complete(notification)
+
+    expected_content = NewTemporalTeamContent.CONTENT.format(team_name)
 
     assert expected_content == notification.content

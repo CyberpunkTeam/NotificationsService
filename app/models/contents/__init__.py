@@ -1,6 +1,7 @@
 from app.models.contents.abandoned_project_content import AbandonedProjectContent
 from app.models.contents.new_team_candidate_content import NewTeamCandidateContent
 from app.models.contents.new_team_member_content import NewTeamMemberContent
+from app.models.contents.new_temporal_team_content import NewTemporalTeamContent
 from app.models.contents.position_invitation_content import PositionInvitationContent
 from app.models.contents.project_abandons_request_content import (
     ProjectAbandonsRequestContent,
@@ -37,6 +38,7 @@ class Contents:
         "TEAM_POSITION_ACCEPTED": TeamPositionAcceptedContent,
         "PROJECT_INVITATION": ProjectInvitationContent,
         "POSITION_INVITATION": PositionInvitationContent,
+        "NEW_TEMPORAL_TEAM": NewTemporalTeamContent,
     }
 
     @staticmethod
