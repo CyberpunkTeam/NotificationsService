@@ -14,6 +14,8 @@ class NotificationTypes:
         "PROJECT_INVITATION",
         "POSITION_INVITATION",
         "NEW_TEMPORAL_TEAM",
+        "TEAM_MEMBER_INTERNAL_RECOMMENDATION",
+        "TEAM_PROJECT_INTERNAL_RECOMMENDATION",
     ]
 
     @staticmethod

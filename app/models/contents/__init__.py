@@ -13,12 +13,18 @@ from app.models.contents.project_finished_request_content import (
 from app.models.contents.project_invitation_content import ProjectInvitationContent
 
 from app.models.contents.team_invitation_content import TeamInvitationContent
+from app.models.contents.team_member_internal_recommendation import (
+    TeamMemberInternalRecommendation,
+)
 from app.models.contents.team_position_postulation_accepted import (
     TeamPositionAcceptedContent,
 )
 from app.models.contents.team_postulation_content import TeamPostulationContent
 from app.models.contents.team_postulation_response_content import (
     TeamPostulationResponseContent,
+)
+from app.models.contents.team_project_internal_recommendation import (
+    TeamProjectInternalRecommendation,
 )
 from app.models.contents.team_review_content import TeamReviewContent
 
@@ -39,6 +45,8 @@ class Contents:
         "PROJECT_INVITATION": ProjectInvitationContent,
         "POSITION_INVITATION": PositionInvitationContent,
         "NEW_TEMPORAL_TEAM": NewTemporalTeamContent,
+        "TEAM_MEMBER_INTERNAL_RECOMMENDATION": TeamMemberInternalRecommendation,
+        "TEAM_PROJECT_INTERNAL_RECOMMENDATION": TeamProjectInternalRecommendation,
     }
 
     @staticmethod

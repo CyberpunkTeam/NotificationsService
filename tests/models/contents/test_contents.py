@@ -13,6 +13,8 @@ from app.models.contents import (
     ProjectInvitationContent,
     PositionInvitationContent,
     NewTemporalTeamContent,
+    TeamProjectInternalRecommendation,
+    TeamMemberInternalRecommendation,
 )
 from app.models.contents.team_postulation_response_content import (
     TeamPostulationResponseContent,
@@ -448,5 +450,55 @@ def test_get_content_for_new_temporal_team():
     Contents.complete(notification)
 
     expected_content = NewTemporalTeamContent.CONTENT.format(team_name)
+
+    assert expected_content == notification.content
+
+
+def test_get_content_for_team_project_internal_recommendation():
+    tid = "1"
+    team_name = "Alfa"
+    member = {"uid": "123", "name": "Matias"}
+    team = {"name": team_name, "owner_id": "3456"}
+    project = {"name": "Find my team", "pid": "4322"}
+
+    notification = Notifications(
+        sender_id=member.get("uid"),
+        receiver_id=team.get("owner_id"),  # user
+        notification_type="TEAM_PROJECT_INTERNAL_RECOMMENDATION",
+        resource="PROJECTS",
+        resource_id=project.get("pid"),
+        metadata={"team": team, "member": member, "project": project},
+    )
+
+    Contents.complete(notification)
+
+    expected_content = TeamProjectInternalRecommendation.CONTENT.format(
+        member.get("name"), team_name, project.get("name")
+    )
+
+    assert expected_content == notification.content
+
+
+def test_get_content_for_team_member_internal_recommendation():
+    tid = "1"
+    team_name = "Alfa"
+    member = {"uid": "123", "name": "Matias"}
+    team = {"name": team_name, "owner_id": "3456"}
+    user = {"name": "Carlos Garcia", "uid": "4322"}
+
+    notification = Notifications(
+        sender_id=member.get("uid"),
+        receiver_id=team.get("owner_id"),  # user
+        notification_type="TEAM_MEMBER_INTERNAL_RECOMMENDATION",
+        resource="USERS",
+        resource_id=user.get("uid"),
+        metadata={"team": team, "member": member, "user": user},
+    )
+
+    Contents.complete(notification)
+
+    expected_content = TeamMemberInternalRecommendation.CONTENT.format(
+        member.get("name"), user.get("name"), team_name
+    )
 
     assert expected_content == notification.content
