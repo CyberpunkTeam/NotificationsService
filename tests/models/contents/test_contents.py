@@ -15,6 +15,7 @@ from app.models.contents import (
     NewTemporalTeamContent,
     TeamProjectInternalRecommendation,
     TeamMemberInternalRecommendation,
+    NewFollowerContent,
 )
 from app.models.contents.team_postulation_response_content import (
     TeamPostulationResponseContent,
@@ -500,5 +501,28 @@ def test_get_content_for_team_member_internal_recommendation():
     expected_content = TeamMemberInternalRecommendation.CONTENT.format(
         member.get("name"), user.get("name"), team_name
     )
+
+    assert expected_content == notification.content
+
+
+def test_get_content_for_new_follower():
+
+    team_name = "Alfa"
+    member = {"uid": "123", "name": "Matias"}
+    team = {"name": team_name, "owner_id": "3456"}
+    user = {"name": "Carlos Garcia", "uid": "4322"}
+
+    notification = Notifications(
+        sender_id=member.get("uid"),
+        receiver_id=team.get("owner_id"),  # user
+        notification_type="NEW_FOLLOWER",
+        resource="USERS",
+        resource_id=user.get("uid"),
+        metadata={"follower_name": user.get("name")},
+    )
+
+    Contents.complete(notification)
+
+    expected_content = NewFollowerContent.CONTENT.format(user.get("name"))
 
     assert expected_content == notification.content

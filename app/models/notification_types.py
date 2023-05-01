@@ -16,6 +16,7 @@ class NotificationTypes:
         "NEW_TEMPORAL_TEAM",
         "TEAM_MEMBER_INTERNAL_RECOMMENDATION",
         "TEAM_PROJECT_INTERNAL_RECOMMENDATION",
+        "NEW_FOLLOWER",
     ]
 
     @staticmethod
