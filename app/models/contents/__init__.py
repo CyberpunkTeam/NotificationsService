@@ -1,4 +1,5 @@
 from app.models.contents.abandoned_project_content import AbandonedProjectContent
+from app.models.contents.new_follower_content import NewFollowerContent
 from app.models.contents.new_team_candidate_content import NewTeamCandidateContent
 from app.models.contents.new_team_member_content import NewTeamMemberContent
 from app.models.contents.new_temporal_team_content import NewTemporalTeamContent
@@ -47,6 +48,7 @@ class Contents:
         "NEW_TEMPORAL_TEAM": NewTemporalTeamContent,
         "TEAM_MEMBER_INTERNAL_RECOMMENDATION": TeamMemberInternalRecommendation,
         "TEAM_PROJECT_INTERNAL_RECOMMENDATION": TeamProjectInternalRecommendation,
+        "NEW_FOLLOWER": NewFollowerContent,
     }
 
     @staticmethod
