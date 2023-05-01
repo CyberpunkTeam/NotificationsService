@@ -518,7 +518,7 @@ def test_get_content_for_new_follower():
         notification_type="NEW_FOLLOWER",
         resource="USERS",
         resource_id=user.get("uid"),
-        metadata={"follower_name": user.get("name")},
+        metadata={"follower_name": user.get("name"), "following_type": "user"},
     )
 
     Contents.complete(notification)
