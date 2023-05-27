@@ -16,6 +16,7 @@ from app.models.contents import (
     TeamProjectInternalRecommendation,
     TeamMemberInternalRecommendation,
     NewFollowerContent,
+    BlockerManager,
 )
 from app.models.contents.team_postulation_response_content import (
     TeamPostulationResponseContent,
@@ -506,7 +507,6 @@ def test_get_content_for_team_member_internal_recommendation():
 
 
 def test_get_content_for_new_follower():
-
     team_name = "Alfa"
     member = {"uid": "123", "name": "Matias"}
     team = {"name": team_name, "owner_id": "3456"}
@@ -524,5 +524,143 @@ def test_get_content_for_new_follower():
     Contents.complete(notification)
 
     expected_content = NewFollowerContent.CONTENT.format(user.get("name"))
+
+    assert expected_content == notification.content
+
+    notification = Notifications(
+        sender_id=member.get("uid"),
+        receiver_id=team.get("owner_id"),  # user
+        notification_type="NEW_FOLLOWER",
+        resource="USERS",
+        resource_id=user.get("uid"),
+        metadata={
+            "follower_name": user.get("name"),
+            "following_type": "team",
+            "following_team_name": "Alfa",
+        },
+    )
+
+    Contents.complete(notification)
+
+    assert user.get("name") in notification.content
+    assert "Alfa" in notification.content
+
+
+def test_block_team():
+    team_name = "Alfa"
+    team = {"name": team_name, "owner_id": "3456"}
+
+    notification = Notifications(
+        sender_id="fmt",
+        receiver_id=team.get("owner_id"),  # user
+        notification_type="TEAM_BLOCKED",
+        resource="TEAMS",
+        resource_id="tid",
+        metadata={"name": team_name},
+    )
+
+    Contents.complete(notification)
+
+    expected_content = BlockerManager.CONTENT_BLOCK.format(f"team {team_name}")
+
+    assert expected_content == notification.content
+
+
+def test_block_project():
+    team_name = "GPT COPILOT"
+    project = {"name": team_name, "owner_id": "3456"}
+
+    notification = Notifications(
+        sender_id="fmt",
+        receiver_id=project.get("owner_id"),  # user
+        notification_type="PROJECT_BLOCKED",
+        resource="PROJECTS",
+        resource_id="pid",
+        metadata={"name": team_name},
+    )
+
+    Contents.complete(notification)
+
+    expected_content = BlockerManager.CONTENT_BLOCK.format(f"project {team_name}")
+
+    assert expected_content == notification.content
+
+
+def test_block_content():
+    content_name = "GPT COPILOT"
+    content = {"name": content_name, "author": "3456"}
+
+    notification = Notifications(
+        sender_id="fmt",
+        receiver_id=content.get("author"),  # user
+        notification_type="CONTENT_BLOCKED",
+        resource="CONTENTS",
+        resource_id="cid",
+        metadata={"name": content_name},
+    )
+
+    Contents.complete(notification)
+
+    expected_content = BlockerManager.CONTENT_BLOCK.format(f"content {content_name}")
+
+    assert expected_content == notification.content
+
+
+def test_unblock_team():
+    team_name = "Alfa"
+    team = {"name": team_name, "owner_id": "3456"}
+
+    notification = Notifications(
+        sender_id="fmt",
+        receiver_id=team.get("owner_id"),  # user
+        notification_type="TEAM_UNBLOCKED",
+        resource="TEAMS",
+        resource_id="tid",
+        metadata={"name": team_name},
+    )
+
+    Contents.complete(notification)
+
+    expected_content = BlockerManager.CONTENT_UNBLOCK.format(f"team {team_name}")
+
+    assert expected_content == notification.content
+
+
+def test_unblock_project():
+    team_name = "GPT COPILOT"
+    project = {"name": team_name, "owner_id": "3456"}
+
+    notification = Notifications(
+        sender_id="fmt",
+        receiver_id=project.get("owner_id"),  # user
+        notification_type="PROJECT_UNBLOCKED",
+        resource="PROJECTS",
+        resource_id="pid",
+        metadata={"name": team_name},
+    )
+
+    Contents.complete(notification)
+
+    expected_content = BlockerManager.CONTENT_UNBLOCK.format(f"project {team_name}")
+
+    assert expected_content == notification.content
+
+
+def test_unblock_content():
+    content_name = "GPT COPILOT"
+    content = {"name": content_name, "author": "3456"}
+
+    notification = Notifications(
+        sender_id="fmt",
+        receiver_id=content.get("author"),  # user
+        notification_type="CONTENT_UNBLOCKED",
+        resource="CONTENTS",
+        resource_id="cid",
+        metadata={"name": content_name},
+    )
+
+    Contents.complete(notification)
+
+    expected_content = BlockerManager.CONTENT_UNBLOCK.format(f"content {content_name}")
 
     assert expected_content == notification.content

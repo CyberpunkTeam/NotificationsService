@@ -17,6 +17,12 @@ class NotificationTypes:
         "TEAM_MEMBER_INTERNAL_RECOMMENDATION",
         "TEAM_PROJECT_INTERNAL_RECOMMENDATION",
         "NEW_FOLLOWER",
+        "TEAM_BLOCKED",
+        "PROJECT_BLOCKED",
+        "CONTENT_BLOCKED",
+        "TEAM_UNBLOCKED",
+        "PROJECT_UNBLOCKED",
+        "CONTENT_UNBLOCKED",
     ]
 
     @staticmethod

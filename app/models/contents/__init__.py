@@ -1,4 +1,5 @@
 from app.models.contents.abandoned_project_content import AbandonedProjectContent
+from app.models.contents.blocker_manager import BlockerManager
 from app.models.contents.new_follower_content import NewFollowerContent
 from app.models.contents.new_team_candidate_content import NewTeamCandidateContent
 from app.models.contents.new_team_member_content import NewTeamMemberContent
@@ -49,6 +50,12 @@ class Contents:
         "TEAM_MEMBER_INTERNAL_RECOMMENDATION": TeamMemberInternalRecommendation,
         "TEAM_PROJECT_INTERNAL_RECOMMENDATION": TeamProjectInternalRecommendation,
         "NEW_FOLLOWER": NewFollowerContent,
+        "TEAM_BLOCKED": BlockerManager,
+        "PROJECT_BLOCKED": BlockerManager,
+        "CONTENT_BLOCKED": BlockerManager,
+        "TEAM_UNBLOCKED": BlockerManager,
+        "PROJECT_UNBLOCKED": BlockerManager,
+        "CONTENT_UNBLOCKED": BlockerManager,
     }
 
     @staticmethod
