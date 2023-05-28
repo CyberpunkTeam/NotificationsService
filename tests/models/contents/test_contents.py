@@ -664,3 +664,42 @@ def test_unblock_content():
     expected_content = BlockerManager.CONTENT_UNBLOCK.format(f"content {content_name}")
 
     assert expected_content == notification.content
+
+
+def test_block_project_sent_to_team():
+    project_name = "GPT COPILOT"
+    team_owner = "uid"
+    notification = Notifications(
+        sender_id="fmt",
+        receiver_id=team_owner,  # user
+        notification_type="TEAM_PROJECT_BLOCKED",
+        resource="PROJECTS",
+        resource_id="pid",
+        metadata={"name": project_name},
+    )
+
+    Contents.complete(notification)
+
+    expected_content = BlockerManager.CONTENT_BLOCK.format(f"project {project_name}")
+    expected_content = expected_content.replace("Your", "The")
+    assert expected_content == notification.content
+
+
+def test_unblock_project_sent_to_team():
+    project_name = "GPT COPILOT"
+    project = {"name": project_name, "owner_id": "3456"}
+    team_owner = "uid"
+    notification = Notifications(
+        sender_id="fmt",
+        receiver_id=team_owner,  # user
+        notification_type="TEAM_PROJECT_UNBLOCKED",
+        resource="PROJECTS",
+        resource_id="pid",
+        metadata={"name": project_name},
+    )
+
+    Contents.complete(notification)
+
+    expected_content = BlockerManager.CONTENT_UNBLOCK.format(f"project {project_name}")
+    expected_content = expected_content.replace("Your", "The")
+    assert expected_content == notification.content

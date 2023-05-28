@@ -28,3 +28,11 @@ class BlockerManager:
             notification.content = BlockerManager.CONTENT_UNBLOCK.format(
                 f"content {name}"
             )
+        elif entity == "TEAM_PROJECT_BLOCKED":
+            message = BlockerManager.CONTENT_BLOCK.format(f"project {name}")
+
+            notification.content = message.replace("Your", "The")
+        elif entity == "TEAM_PROJECT_UNBLOCKED":
+            message = BlockerManager.CONTENT_UNBLOCK.format(f"project {name}")
+
+            notification.content = message.replace("Your", "The")
