@@ -56,6 +56,8 @@ class Contents:
         "TEAM_UNBLOCKED": BlockerManager,
         "PROJECT_UNBLOCKED": BlockerManager,
         "CONTENT_UNBLOCKED": BlockerManager,
+        "TEAM_PROJECT_BLOCKED": BlockerManager,
+        "TEAM_PROJECT_UNBLOCKED": BlockerManager,
     }
 
     @staticmethod

@@ -23,6 +23,8 @@ class NotificationTypes:
         "TEAM_UNBLOCKED",
         "PROJECT_UNBLOCKED",
         "CONTENT_UNBLOCKED",
+        "TEAM_PROJECT_BLOCKED",
+        "TEAM_PROJECT_UNBLOCKED",
     ]
 
     @staticmethod
